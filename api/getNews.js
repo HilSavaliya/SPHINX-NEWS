@@ -6,7 +6,7 @@ export default async function handler(request, response) {
   const category = fullURL.searchParams.get('category') || 'general';
 
   // Your API key stored as an environment variable on Vercel
-  const apiKey = process.env.VITE_NEWS_API_KEY;
+  const apiKey = process.env.NEWS_API_KEY;
   const url = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${apiKey}`;
 
   try {
