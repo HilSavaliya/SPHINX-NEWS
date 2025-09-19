@@ -1,8 +1,10 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
+// Detect if running on GitHub Pages
+const isGithubPages = process.env.GITHUB_ACTIONS || false
+
 export default defineConfig({
   plugins: [react()],
-  base: '/SPHINX-NEWS/', 
+  base: isGithubPages ? '/SPHINX-NEWS/' : '/', 
 })
