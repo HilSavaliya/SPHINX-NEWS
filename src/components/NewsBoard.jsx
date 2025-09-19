@@ -1,67 +1,71 @@
-// In file: /src/components/NewsBoard.js
+import React, { useEffect, useState } from 'react';
+import NewsItem from './NewsItem';
 
-import React, { useEffect, useState } from "react";
-import NewsItem from "./NewsItem";
-
-function NewsBoard({ category }) {
+function NewsBoard({ category, searchTerm, countryQuery }) {
   const [articles, setArticles] = useState([]);
-  const [loading, setLoading] = useState(true); // Added loading state
-  const [error, setError] = useState(null);     // Added error state for UI
+  const [loading, setLoading] = useState(true);
+  const [title, setTitle] = useState("Latest News");
 
   useEffect(() => {
     const fetchNews = async () => {
       setLoading(true);
-      setError(null);
+      const apiKey = import.meta.env.VITE_GUARDIAN_API_KEY;
+      let url = `https://content.guardianapis.com/search?api-key=${apiKey}&show-fields=all&page-size=20&q=${countryQuery}`;
+
+      if (searchTerm) {
+        url += ` ${searchTerm}`;
+        setTitle(`Results for: ${searchTerm} in ${countryQuery}`);
+      } else {
+        url += `&section=${category}`;
+        setTitle(`${category.charAt(0).toUpperCase() + category.slice(1)} News in ${countryQuery}`);
+      }
+
       try {
-        // Call your own serverless function, passing the category as a query parameter
-        const url = `/api/getNews?category=${category}`;
         const response = await fetch(url);
         const data = await response.json();
-
-        if (response.ok) {
-          // Filter out articles that don't have an image
-          const filteredArticles = data.articles.filter(
-            (article) => article.urlToImage
-          );
-          setArticles(filteredArticles);
+        if (data.response && data.response.results) {
+          setArticles(data.response.results.filter(article => article.fields && article.fields.thumbnail));
         } else {
-          // Handle errors from the API (e.g., bad API key)
-          throw new Error(data.message || "Failed to fetch news");
+          setArticles([]);
         }
-      } catch (err) {
-        setError(err.message);
-        console.error("Error fetching news:", err);
-      } finally {
-        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching news:", error);
       }
+      setLoading(false);
     };
 
     fetchNews();
-  }, [category]);
+  }, [category, searchTerm, countryQuery]);
 
   return (
-    <div>
-      <h2 className="text-center">
-        Latest <span className="badge bg-danger">News</span>
-      </h2>
-
-      {/* Show loading message */}
-      {loading && <p className="text-center">Loading articles...</p>}
-
-      {/* Show error message */}
-      {error && <p className="text-center text-danger">{error}</p>}
-
-      {/* Show articles */}
-      {!loading && !error && articles.map((news) => (
-        <NewsItem
-          // ⚠️ IMPORTANT: Use a unique ID from the data for the key, not the index.
-          key={news.url}
-          title={news.title}
-          description={news.description}
-          src={news.urlToImage}
-          url={news.url}
-        />
-      ))}
+    <div className="container py-5">
+      <h1 className="text-center mb-4 display-4 fw-bold">{title}</h1>
+      {loading ? (
+        <div className="d-flex justify-content-center mt-5">
+          <div className="spinner-border" style={{ width: '3rem', height: '3rem' }} role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      ) : (
+        <div className="row">
+          {articles.length > 0 ? (
+            articles.map((article) => (
+              <div key={article.id} className="col-lg-4 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch">
+                <NewsItem
+                  title={article.webTitle}
+                  description={article.fields.trailText}
+                  src={article.fields.thumbnail}
+                  url={article.webUrl}
+                />
+              </div>
+            ))
+          ) : (
+            <div className="alert alert-warning text-center" role="alert">
+              No articles found. Please try a different category or search.
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

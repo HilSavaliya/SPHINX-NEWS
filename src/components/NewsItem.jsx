@@ -1,29 +1,40 @@
-// In file: /src/components/NewsItem.js
+// src/components/NewsItem.jsx
 
-import React from "react";
+import React, { useState } from 'react';
 import Placeholder from '../assets/placeholder.jpg';
 
 function NewsItem({ title, description, src, url }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const toggleTitle = () => setIsExpanded(!isExpanded);
+
   return (
-    <div className="card bg-dark text-light mb-3 d-inline-block my-3 mx-3 px-2 py-2" style={{ maxWidth: "345px" }}>
-      <img
-        src={src || Placeholder} // Use || for a simpler fallback
-        style={{ height: "200px", objectFit: "cover" }}
-        className="card-img-top"
-        alt={title || 'News article image'}
-        onError={(e) => { e.currentTarget.src = Placeholder; }}
-      />
-      <div className="card-body">
-        {/* ✅ IMPORTANT: Check if title exists before using .slice() to prevent errors */}
-        <h5 className="card-title">
-          {title ? title.slice(0, 50) : "No Title Available"}...
-        </h5>
-        <p className="card-text">
-          {description ? description.slice(0, 90) : "Description not available for this article"}...
-        </p>
-        <a href={url} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-          Read More
-        </a>
+    // 1. The new outer wrapper with the animated border
+    <div className="card-border-wrap h-100 shadow">
+      {/* 2. The original card now has a solid background to cover the gradient */}
+      <div className="card h-100 border-0 rounded-4" style={{ backgroundColor: "#212529" }}>
+        <img
+          src={src ? src : Placeholder}
+          onError={(e) => { e.currentTarget.src = Placeholder; }}
+          style={{ height: "250px", objectFit: "cover" }}
+          className="card-img-top rounded-top-4"
+          alt={title}
+        />
+        <div className="card-body d-flex flex-column">
+          <h5 
+            className={`card-title ${!isExpanded ? 'title-clamp' : ''}`}
+            onClick={toggleTitle}
+            style={{ cursor: 'pointer' }}
+            title="Click to read full title"
+          >
+            {title}
+          </h5>
+          <p className="card-text flex-grow-1 description-clamp text-muted">
+            {description || "Description not available."}
+          </p>
+          <a href={url} target="_blank" rel="noopener noreferrer" className="btn btn-primary mt-auto">
+            Read More
+          </a>
+        </div>
       </div>
     </div>
   );

@@ -8,3 +8,21 @@
   text-align: inherit;
   cursor: pointer;
 }
+
+/* Add this to your main CSS file */
+
+.description-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* The number of lines to show */
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.title-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Truncate to 2 lines */
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

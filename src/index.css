@@ -1,0 +1,92 @@
+/* src/index.css */
+
+.title-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Truncate title to 2 lines */
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.description-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Truncate description to 3 lines */
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* src/index.css */
+
+.animated-gradient {
+  /* The only change is the list of colors in the gradient */
+  background: linear-gradient(
+    -45deg, 
+    #212529, 
+    #343a40, 
+    #212529, 
+    #000000
+  );
+  background-size: 400% 400%;
+  animation: gradient-animation 15s ease infinite;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Add this to src/index.css */
+
+.card-glass {
+  .card-glass {
+    /* A solid, off-black background slightly lighter than the page */
+    background-color: #212529;
+  
+    /* A subtle border to give the card a defined edge */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  
+    /* We no longer need the backdrop-filter for a solid background */
+  }
+}
+
+/* src/index.css */
+
+.card-border-wrap {
+  padding: 3px;
+  /* Swapped the bright colors for a premium gold and bronze palette */
+  background: linear-gradient(
+    -45deg, 
+    #BF953F, /* A darker bronze */
+    #FCF6BA, /* A light gold/cream */
+    #B38728, /* A classic gold */
+    #FBF5B7, /* Another light gold */
+    #AA771C  /* A darker gold */
+  );
+  background-size: 400% 400%;
+  animation: gradient-animation 8s ease infinite;
+  border-radius: 1.25rem;
+}
+
+/* The rest of your CSS remains the same */
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ... */
+/* ... your other CSS classes like .title-clamp ... */
