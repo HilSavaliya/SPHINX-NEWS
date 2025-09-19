@@ -84,6 +84,3 @@ This is a learning project, but feel free to fork the repo, open issues, or subm
 
 ---
 
-## 📜 License
-
-This project is released under the **MIT License**.
