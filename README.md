@@ -82,5 +82,3 @@ This project is set up for deployment on **GitHub Pages** using `gh-pages`.
 
 This is a learning project, but feel free to fork the repo, open issues, or submit pull requests if you’d like to improve it.
 
----
-
