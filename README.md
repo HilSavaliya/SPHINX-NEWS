@@ -18,7 +18,7 @@ This project was created for **learning and demo purposes**, to practice working
 
 * **React** (Frontend)
 * **JavaScript (ES6+)**
-* **CSS / Flexbox** for styling
+* **Bootstrap / React-Bootstrap** for styling
 
 ---
 
@@ -36,21 +36,45 @@ It is not a production-ready app, but a practice repository to showcase fundamen
    ```bash
    git clone https://github.com/HilSavaliya/SPHINX-NEWS.git
    ```
+
 2. Navigate to the project folder:
 
    ```bash
    cd SPHINX-NEWS
    ```
+
 3. Install dependencies:
 
    ```bash
    npm install
    ```
-4. Run the app:
+
+4. Run the app locally:
 
    ```bash
-   npm start
+   npm run dev
    ```
+
+---
+
+## 🌍 Deployment (GitHub Pages)
+
+This project is set up for deployment on **GitHub Pages** using `gh-pages`.
+
+1. Build the app:
+
+   ```bash
+   npm run build
+   ```
+
+2. Deploy to GitHub Pages:
+
+   ```bash
+   npm run deploy
+   ```
+
+3. Access your live project at:
+   👉 [https://HilSavaliya.github.io/SPHINX-NEWS](https://HilSavaliya.github.io/SPHINX-NEWS)
 
 ---
 
@@ -63,5 +87,3 @@ This is a learning project, but feel free to fork the repo, open issues, or subm
 ## 📜 License
 
 This project is released under the **MIT License**.
-
----
